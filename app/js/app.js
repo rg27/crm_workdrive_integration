@@ -1,12 +1,13 @@
 //https://127.0.0.1:5000/app/widget.html
 
-const legal_validator = "";
-const application_id = "";
+let legal_validator;
+let entity_id;
+
 
 ZOHO.embeddedApp.on("PageLoad", entity => {
     // This is the information about the current record, if applicable.
-
-    const entity_id = entity.EntityId;
+    
+    entity_id = entity.EntityId;
     console.log(entity)
     console.log("Entity ID:")
     console.log(entity_id)
@@ -21,19 +22,20 @@ ZOHO.embeddedApp.on("PageLoad", entity => {
         const legal_doc_link = data.data[0].Legal_Docs_Link
         document.getElementById("legal_doc").src = legal_doc_link
         legal_validator =  data.data[0].Legal_Docs_Validator
-        application_id =  data.data[0].id
     })
     
 });
 // Initialize Widget Connection
 ZOHO.embeddedApp.init();
 
+console.log("Application ID::::");
+console.log(application_id)
 function update_widget()
 {
     var config={
         Entity:"Applications1",
         APIData:{
-              "id": application_id,
+              "id": entity_id,
               "Legal_Docs_Validator": true
         },
         Trigger:["workflow"]
@@ -42,6 +44,10 @@ function update_widget()
       .then(function(data){
           console.log(data)
           alert("Successfully Updated!")
+          ZOHO.CRM.UI.Popup.closeReload()
+        .then(function(data){
+            console.log(data)
+        })
       })
 }
 
