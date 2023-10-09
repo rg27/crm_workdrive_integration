@@ -26,6 +26,7 @@
         font-size: 18px; 
         line-height: 25px;
         border-radius: 4px;
+        margin: 4px 2px;
       }
       
       .header a.logo {
@@ -33,7 +34,7 @@
         font-weight: bold;
       }
       
-      .header a:hover {
+      .header  a.cancel:hover {
         background-color: #ddd;
         color: black;
       }
@@ -58,13 +59,22 @@
           float: none;
         }
       }
+      .update{
+        background-color: orange;
+        color: white;
+      }
+  
       </style>
   </head>
   <body>
+    <div>
+      <p id="legal_doc_validator"></p>
+    </div>
     <div class="header">
       <a href="#default"  class="logo">Zoho Workdrive</a>
       <div class="header-right">
-        <a href="#contact" onclick="cancel_widget();">Cancel</a>
+        <a class="cancel" href="#cancel" onclick="cancel_widget();">Cancel</a>
+        <a class="update" href="#update" onclick="update_widget();">Update</a>
         <a class="active" href="#about" onclick="complete_trigger()">Complete</a>
       </div>
     </div>
