@@ -2,6 +2,7 @@
 
 let legal_validator;
 let entity_id;
+let new_license_id;
 
 
 ZOHO.embeddedApp.on("PageLoad", entity => {
@@ -21,8 +22,19 @@ ZOHO.embeddedApp.on("PageLoad", entity => {
         console.log("Applications:");
         const legal_doc_link = data.data[0].Legal_Docs_Link
         document.getElementById("legal_doc").src = legal_doc_link
-        legal_validator =  data.data[0].Legal_Docs_Validator
+        
     })
+
+     //Get Related Records
+     ZOHO.CRM.API.getRelatedRecords({Entity:"Applications1",RecordID:entity_id,RelatedList:"New_License_Application1",page:1,per_page:1})
+     //Arrow Function
+     .then((data)=>{
+        console.log("New License Forms:")
+        console.log(data);
+        new_license_id = data.data[0].id
+        legal_validator =  data.data[0].Legal_Docs_Validator
+     })
+
     
 });
 // Initialize Widget Connection
@@ -33,9 +45,9 @@ console.log(application_id)
 function update_widget()
 {
     var config={
-        Entity:"Applications1",
+        Entity:"New_License_Forms",
         APIData:{
-              "id": entity_id,
+              "id": new_license_id,
               "Legal_Docs_Validator": true
         },
         Trigger:["workflow"]
