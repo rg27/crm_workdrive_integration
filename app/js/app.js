@@ -1,8 +1,9 @@
 //https://127.0.0.1:5000/app/widget.html
+// /widget.html
 
-let legal_validator;
+// let legal_validator;
 let entity_id;
-let new_license_id;
+// let new_license_id;
 
 
 ZOHO.embeddedApp.on("PageLoad", entity => {
@@ -26,42 +27,40 @@ ZOHO.embeddedApp.on("PageLoad", entity => {
     })
 
      //Get Related Records
-     ZOHO.CRM.API.getRelatedRecords({Entity:"Applications1",RecordID:entity_id,RelatedList:"New_License_Application1",page:1,per_page:1})
-     //Arrow Function
-     .then((data)=>{
-        console.log("New License Forms:")
-        console.log(data);
-        new_license_id = data.data[0].id
-        legal_validator =  data.data[0].Legal_Docs_Validator
-     })
+    //  ZOHO.CRM.API.getRelatedRecords({Entity:"Applications1",RecordID:entity_id,RelatedList:"New_License_Application1",page:1,per_page:1})
+    //  //Arrow Function
+    //  .then((data)=>{
+    //     console.log("New License Forms:")
+    //     console.log(data);
+    //     new_license_id = data.data[0].id
+    //     legal_validator =  data.data[0].Legal_Docs_Validator
+    //  })
 
     
 });
 // Initialize Widget Connection
 ZOHO.embeddedApp.init();
 
-console.log("Application ID::::");
-console.log(application_id)
-function update_widget()
-{
-    var config={
-        Entity:"New_License_Forms",
-        APIData:{
-              "id": new_license_id,
-              "Legal_Docs_Validator": true
-        },
-        Trigger:["workflow"]
-      }
-      ZOHO.CRM.API.updateRecord(config)
-      .then(function(data){
-          console.log(data)
-          alert("Successfully Updated!")
-          ZOHO.CRM.UI.Popup.closeReload()
-        .then(function(data){
-            console.log(data)
-        })
-      })
-}
+// function update_widget()
+// {
+//     var config={
+//         Entity:"New_License_Forms",
+//         APIData:{
+//               "id": new_license_id,
+//               "Legal_Docs_Validator": true
+//         },
+//         Trigger:["workflow"]
+//       }
+//       ZOHO.CRM.API.updateRecord(config)
+//       .then(function(data){
+//           console.log(data)
+//           alert("Successfully Updated!")
+//           ZOHO.CRM.UI.Popup.closeReload()
+//         .then(function(data){
+//             console.log(data)
+//         })
+//       })
+// }
 
 
 function cancel_widget(){
@@ -72,13 +71,14 @@ function cancel_widget(){
 }
 
 function complete_trigger(){
-    if(legal_validator == true || legal_validator == 'true')
-    {
-        ZOHO.CRM.BLUEPRINT.proceed();
-    }
-    if(legal_validator == false || legal_validator == 'false')
-    {
-       alert("Legal Document is empty");
-    }
+    // if(legal_validator == true || legal_validator == 'true')
+    // {
+    //     ZOHO.CRM.BLUEPRINT.proceed();
+    // }
+    // if(legal_validator == false || legal_validator == 'false')
+    // {
+    //    alert("Legal Document is empty");
+    // }
+    ZOHO.CRM.BLUEPRINT.proceed();
     
 }
